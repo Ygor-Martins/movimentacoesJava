@@ -9,12 +9,13 @@ public class Movimentacao {
         CREDITO, DEBITO, TRANSFERENCIA_ENTRADA, TRANSFERENCIA_SAIDA;
 
         public String getLabel() {
-            return switch (this) {
-                case CREDITO               -> "Crédito";
-                case DEBITO                -> "Débito";
-                case TRANSFERENCIA_ENTRADA -> "Transferência Recebida";
-                case TRANSFERENCIA_SAIDA   -> "Transferência Enviada";
-            };
+            switch (this) {
+                case CREDITO:               return "Crédito";
+                case DEBITO:                return "Débito";
+                case TRANSFERENCIA_ENTRADA: return "Transferência Recebida";
+                case TRANSFERENCIA_SAIDA:   return "Transferência Enviada";
+                default:                    return this.name();
+            }
         }
     }
 

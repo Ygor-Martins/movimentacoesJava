@@ -16,10 +16,9 @@ public class ContaDAO {
     // ── Inserção ──────────────────────────────────────────────
 
     public Conta inserir(Connection conn, Conta conta) throws SQLException {
-        final String sql = """
-                INSERT INTO conta (numero, titular, tipo, saldo, ativa)
-                VALUES (?, ?, ?, ?, ?)
-                """;
+        final String sql =
+                "INSERT INTO conta (numero, titular, tipo, saldo, ativa) " +
+                "VALUES (?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, conta.getNumero());
             ps.setString(2, conta.getTitular());
@@ -40,10 +39,9 @@ public class ContaDAO {
     // ── Atualização ───────────────────────────────────────────
 
     public void atualizar(Connection conn, Conta conta) throws SQLException {
-        final String sql = """
-                UPDATE conta SET titular = ?, tipo = ?, ativa = ?
-                WHERE id = ?
-                """;
+        final String sql =
+                "UPDATE conta SET titular = ?, tipo = ?, ativa = ? " +
+                "WHERE id = ?";
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setString(1, conta.getTitular());
             ps.setString(2, conta.getTipo().name());

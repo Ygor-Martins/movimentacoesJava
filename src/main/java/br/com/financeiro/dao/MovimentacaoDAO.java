@@ -13,11 +13,10 @@ import java.util.List;
 public class MovimentacaoDAO {
 
     public Movimentacao inserir(Connection conn, Movimentacao mov) throws SQLException {
-        final String sql = """
-                INSERT INTO movimentacao
-                    (conta_id, tipo, valor, descricao, conta_origem_id, conta_destino_id)
-                VALUES (?, ?, ?, ?, ?, ?)
-                """;
+        final String sql =
+                "INSERT INTO movimentacao " +
+                "    (conta_id, tipo, valor, descricao, conta_origem_id, conta_destino_id) " +
+                "VALUES (?, ?, ?, ?, ?, ?)";
         try (PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setLong(1, mov.getContaId());
             ps.setString(2, mov.getTipo().name());
@@ -38,17 +37,16 @@ public class MovimentacaoDAO {
 
     /** Extrato de uma conta específica — ordenado do mais recente ao mais antigo. */
     public List<Movimentacao> listarPorConta(Connection conn, Long contaId) throws SQLException {
-        final String sql = """
-                SELECT m.*,
-                       co.numero AS num_origem,
-                       cd.numero AS num_destino
-                FROM movimentacao m
-                LEFT JOIN conta co ON co.id = m.conta_origem_id
-                LEFT JOIN conta cd ON cd.id = m.conta_destino_id
-                WHERE m.conta_id = ?
-                ORDER BY m.realizada_em DESC
-                LIMIT 100
-                """;
+        final String sql =
+                "SELECT m.*, " +
+                "       co.numero AS num_origem, " +
+                "       cd.numero AS num_destino " +
+                "FROM movimentacao m " +
+                "LEFT JOIN conta co ON co.id = m.conta_origem_id " +
+                "LEFT JOIN conta cd ON cd.id = m.conta_destino_id " +
+                "WHERE m.conta_id = ? " +
+                "ORDER BY m.realizada_em DESC " +
+                "LIMIT 100";
         List<Movimentacao> lista = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setLong(1, contaId);
@@ -63,16 +61,15 @@ public class MovimentacaoDAO {
 
     /** Últimas movimentações globais para o painel. */
     public List<Movimentacao> listarRecentes(Connection conn, int limite) throws SQLException {
-        final String sql = """
-                SELECT m.*,
-                       co.numero AS num_origem,
-                       cd.numero AS num_destino
-                FROM movimentacao m
-                LEFT JOIN conta co ON co.id = m.conta_origem_id
-                LEFT JOIN conta cd ON cd.id = m.conta_destino_id
-                ORDER BY m.realizada_em DESC
-                LIMIT ?
-                """;
+        final String sql =
+                "SELECT m.*, " +
+                "       co.numero AS num_origem, " +
+                "       cd.numero AS num_destino " +
+                "FROM movimentacao m " +
+                "LEFT JOIN conta co ON co.id = m.conta_origem_id " +
+                "LEFT JOIN conta cd ON cd.id = m.conta_destino_id " +
+                "ORDER BY m.realizada_em DESC " +
+                "LIMIT ?";
         List<Movimentacao> lista = new ArrayList<>();
         try (PreparedStatement ps = conn.prepareStatement(sql)) {
             ps.setInt(1, limite);
