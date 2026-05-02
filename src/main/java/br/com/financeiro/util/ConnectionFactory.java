@@ -19,7 +19,7 @@ public final class ConnectionFactory {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl(env("DB_URL",      "jdbc:postgresql://localhost:5432/financeiro"));
         config.setUsername(env("DB_USER",    "postgres"));
-        config.setPassword(env("DB_PASS",    "postgres"));
+        config.setPassword(env("DB_PASS",    "290699"));
         config.setMaximumPoolSize(10);
         config.setMinimumIdle(2);
         config.setConnectionTimeout(30_000);

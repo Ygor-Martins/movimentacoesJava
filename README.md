@@ -1,3 +1,6 @@
+# Candidato
+Ygor Augusto silva Martins
+
 # FinanceCore — Gestão de Contas e Transferências
 
 Módulo web de gestão financeira interna construído com **Java 11 + JSP + Servlet + JDBC puro**.
